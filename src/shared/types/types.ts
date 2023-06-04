@@ -22,3 +22,5 @@ export type ValidateById = {
   repositoryType: RepositoryType;
   options?: FindOneOptions<any>;
 };
+
+export type ObjectKey<T> = keyof T;

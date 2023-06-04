@@ -16,6 +16,4 @@ export abstract class BaseForEntity {
   @UpdateDateColumn()
   @Exclude()
   updated_at: Date;
-
-  [key: string]: any;
 }

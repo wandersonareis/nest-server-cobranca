@@ -68,7 +68,7 @@ export class CustomersController {
     @Param() param: CustomerIdParam,
     @Body() updateCustomerDto: UpdateCustomerDto,
   ) {
-    const customer = await this.sharedService.findOneOrFail({
+    const customer = await this.sharedService.findOneOrFail<Customers>({
       id: param.id,
       repositoryType: RepositoryType.Customer,
     });

@@ -24,7 +24,7 @@ export class AuthHelper {
   }
 
   public async validateUser(decoded: UserPayload): Promise<IPersonalInfo> {
-    const user = await this.sharedService.findOneOrFail({
+    const user = await this.sharedService.findOneOrFail<IPersonalInfo>({
       id: decoded.id,
       repositoryType: RepositoryType.User,
     });

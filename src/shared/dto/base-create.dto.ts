@@ -40,6 +40,4 @@ export default abstract class BaseCreateDto {
   @IsObject({ message: 'address: O endereço deve ser um objeto.' })
   @ValidateNested()
   address: IAddress;
-
-  [key: string]: any;
 }

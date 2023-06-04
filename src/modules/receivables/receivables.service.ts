@@ -13,7 +13,7 @@ export class ReceivablesService {
     private readonly receivablesRepository: Repository<Receivable>,
   ) {}
   create(customer: Customers, createReceivableDto: CreateReceivableDto) {
-    createReceivableDto.customer = customer.id;
+    //createReceivableDto.customer = customer.id;
     const receivable = this.receivablesRepository.create(createReceivableDto);
     customer.receivables.push(receivable);
 

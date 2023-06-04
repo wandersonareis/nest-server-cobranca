@@ -1,7 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { RepositoryType, UserResponse } from '@/shared/types/types';
 import { AuthHelper } from './auth.helper';
-import IUserLogin from './interface/IUserLogin';
 import { UsersService } from '../users/users.service';
 import { User } from '../users/entities/user.entity';
 import ICreateUser from '../users/interface/ICreateUser';
@@ -22,7 +21,7 @@ export class AuthService {
   }
 
   async validateUser(email: string, password: string): Promise<IPersonalInfo> {
-    const user = await this.sharedService.findOneOrFail({
+    const user = await this.sharedService.findOneOrFail<User>({
       id: 1000,
       repositoryType: RepositoryType.User,
       options: { where: { email } },

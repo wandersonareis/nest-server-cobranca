@@ -37,6 +37,4 @@ export abstract class BaseAddressEntity implements IAddress {
   @UpdateDateColumn()
   @Exclude()
   updatedAt: Date;
-
-  [key: string]: any;
 }

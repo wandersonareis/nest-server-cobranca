@@ -39,6 +39,4 @@ export class CreateReceivableDto {
   })
   @Min(1, { message: 'status: deve ser um número inteiro maior que zero' })
   readonly status: number;
-
-  [key: string]: any;
 }

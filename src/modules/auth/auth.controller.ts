@@ -11,7 +11,6 @@ import { AuthService } from './auth.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { LocalAuthGuard } from './local-auth.guard';
 import { Public } from './public.guard';
-import { User } from '../users/entities/user.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -31,7 +30,7 @@ export class AuthController {
   @Public()
   @Post('login')
   @UseGuards(LocalAuthGuard)
-  signIn(@Request() req: User) {
+  signIn(@Request() req: any) {
     return this.authService.signIn(req.user);
   }
 

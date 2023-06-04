@@ -4,7 +4,6 @@ import { User } from '@/modules/users/entities/user.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
-import { log } from 'console';
 import { FindOneOptions, Repository } from 'typeorm';
 import IPersonalInfo from './interface/IPersonalInfo';
 import { ValidateById } from './types/types';
@@ -17,14 +16,14 @@ export default class SharedService {
     private customerRepository: Repository<Customers>,
   ) {}
 
-  async findOneOrFail(decoded: ValidateById): Promise<IPersonalInfo> {
+  async findOneOrFail<T>(decoded: ValidateById): Promise<T> {
     const founded = await this.findOneByIdAndType(decoded);
 
     if (!founded) {
       throw new NotFoundException(`${decoded.repositoryType} não encontrado`);
     }
 
-    return founded;
+    return founded as T;
   }
 
   async validateUser(decoded: any): Promise<IPersonalInfo> {
@@ -66,9 +65,7 @@ export default class SharedService {
     return await repository.findOne({ where: { id } });
   }
 
-  private async findOneByIdAndType(
-    target: ValidateById,
-  ): Promise<IPersonalInfo> {
+  private async findOneByIdAndType<T>(target: ValidateById): Promise<T> {
     switch (target.repositoryType) {
       case 'user':
         if (target.options) {

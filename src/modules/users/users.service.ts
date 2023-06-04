@@ -9,6 +9,7 @@ import SharedService from '@/shared/shared.service';
 import IPersonalInfo from '@/shared/interface/IPersonalInfo';
 import * as diacritics from 'diacritics';
 import ICreateUser from './interface/ICreateUser';
+import { ObjectKey } from '@/shared/types/types';
 
 @Injectable()
 export class UsersService {
@@ -86,13 +87,15 @@ export class UsersService {
     }
 
     for (const property of properties) {
-      if (!userDto[property]) {
+      const key = property as ObjectKey<typeof userDto>;
+
+      if (!userDto[key]) {
         continue;
       }
 
       const query: FindOneOptions<User> = userId
-        ? { where: { [property]: userDto[property], id: Not(userId) } }
-        : { where: { [property]: userDto[property] } };
+        ? { where: { [property]: userDto[key], id: Not(userId) } }
+        : { where: { [property]: userDto[key] } };
 
       const existingUser = await this.userRepository.findOne(query);
 

@@ -12,6 +12,4 @@ export default interface IPersonalInfo {
   phone?: string;
 
   address: IAddress;
-
-  [key: string]: any;
 }

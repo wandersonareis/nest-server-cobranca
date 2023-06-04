@@ -7,6 +7,7 @@ import { Customers } from './entities/customers.entity';
 import { CustomersAddress } from './entities/customers-address.entity';
 import * as diacritics from 'diacritics';
 import { Receivable } from '../receivables/entities/receivable.entity';
+import { ObjectKey } from '@/shared/types/types';
 
 @Injectable()
 export class CustomersService {
@@ -85,15 +86,16 @@ export class CustomersService {
     if (!properties || !properties.length) {
       return;
     }
-
     for (const property of properties) {
-      if (!customerDto[property]) {
+      const key = property as ObjectKey<typeof customerDto>;
+
+      if (!customerDto[key]) {
         continue;
       }
 
       const query: FindOneOptions<Customers> = customerId
-        ? { where: { [property]: customerDto[property], id: Not(customerId) } }
-        : { where: { [property]: customerDto[property] } };
+        ? { where: { [property]: customerDto[key], id: Not(customerId) } }
+        : { where: { [property]: customerDto[key] } };
 
       const existingUser = await this.customersRepository.findOne(query);
 
