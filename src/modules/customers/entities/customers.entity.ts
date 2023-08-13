@@ -39,7 +39,6 @@ export class Customers extends BaseForEntity implements IPersonalInfo {
 
   @OneToMany(() => Receivable, (receivable) => receivable.customer, {
     cascade: true,
-    eager: true,
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'receivable_id' })

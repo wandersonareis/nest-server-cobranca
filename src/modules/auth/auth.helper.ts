@@ -1,16 +1,8 @@
 import IPersonalInfo from '@/shared/interface/IPersonalInfo';
 import SharedService from '@/shared/shared.service';
 import { RepositoryType, UserPayload } from '@/shared/types/types';
-import {
-  ForbiddenException,
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { log } from 'console';
-
-import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class AuthHelper {
@@ -25,8 +17,8 @@ export class AuthHelper {
 
   public async validateUser(decoded: UserPayload): Promise<IPersonalInfo> {
     const user = await this.sharedService.findOneOrFail<IPersonalInfo>({
-      id: decoded.id,
       repositoryType: RepositoryType.User,
+      options: { where: { id: decoded.id } },
     });
 
     return user;
@@ -38,20 +30,5 @@ export class AuthHelper {
       name: user.name,
       email: user.email,
     });
-  }
-
-  private async validate(token: string): Promise<boolean> {
-    const decoded: unknown = this.jwtService.verify(token);
-
-    if (!decoded) {
-      throw new ForbiddenException();
-    }
-
-    const user = await this.sharedService.validateUser(decoded);
-
-    if (!user) {
-      throw new UnauthorizedException('Usuário e/ou senha inválido');
-    }
-    return true;
   }
 }

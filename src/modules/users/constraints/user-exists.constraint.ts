@@ -13,8 +13,8 @@ export class UserExistsRule implements ValidatorConstraintInterface {
 
   async validate(value: number) {
     const user = await this.sharedService.findOneOrFail({
-      id: value,
       repositoryType: RepositoryType.User,
+      options: { where: { id: value } },
     });
     return !!user;
   }

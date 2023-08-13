@@ -22,7 +22,6 @@ export class AuthService {
 
   async validateUser(email: string, password: string): Promise<IPersonalInfo> {
     const user = await this.sharedService.findOneOrFail<User>({
-      id: 1000,
       repositoryType: RepositoryType.User,
       options: { where: { email } },
     });

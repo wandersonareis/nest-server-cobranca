@@ -8,6 +8,7 @@ import { CustomersAddress } from './entities/customers-address.entity';
 import * as diacritics from 'diacritics';
 import { Receivable } from '../receivables/entities/receivable.entity';
 import { ObjectKey } from '@/shared/types/types';
+import IPersonalInfo from '@/shared/interface/IPersonalInfo';
 
 @Injectable()
 export class CustomersService {
@@ -16,8 +17,6 @@ export class CustomersService {
     private readonly customersRepository: Repository<Customers>,
     @InjectRepository(CustomersAddress)
     private readonly customersAddressRepository: Repository<CustomersAddress>,
-    @InjectRepository(Receivable)
-    private readonly receivableRepository: Repository<Receivable>,
   ) {}
 
   create(createCustomerDto: CreateCustomerDto) {
@@ -68,7 +67,10 @@ export class CustomersService {
     });
   }
 
-  async update(customer: Customers, updateCustomerDto: UpdateCustomerDto) {
+  async update(
+    customer: Customers,
+    updateCustomerDto: UpdateCustomerDto,
+  ): Promise<IPersonalInfo> {
     this.customersRepository.merge(customer, updateCustomerDto);
 
     return this.customersRepository.save(customer);

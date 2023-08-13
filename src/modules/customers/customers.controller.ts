@@ -10,6 +10,7 @@ import {
   UseInterceptors,
   ClassSerializerInterceptor,
   Query,
+  NotFoundException,
 } from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
@@ -22,6 +23,7 @@ import { CreateReceivableDto } from '../receivables/dto/create-receivable.dto';
 import SharedService from '@/shared/shared.service';
 import CustomerIdParam from '@/shared/dto/customer-exists-param.dto';
 import { RepositoryType } from '@/shared/types/types';
+import IPersonalInfo from '@/shared/interface/IPersonalInfo';
 
 @Controller('customers')
 @UseGuards(AuthGuard)
@@ -50,10 +52,11 @@ export class CustomersController {
 
   @Get(':id')
   async findOne(@Param() param: CustomerIdParam) {
-    const customer = await this.sharedService.findOneOrFail({
-      id: param.id,
-      repositoryType: RepositoryType.Customer,
-    });
+    const customer = await this.customersService.findOneById(param.id);
+
+    if (!customer) {
+      throw new NotFoundException(`Cliente não encontrado`);
+    }
 
     return customer;
   }
@@ -67,10 +70,10 @@ export class CustomersController {
   async update(
     @Param() param: CustomerIdParam,
     @Body() updateCustomerDto: UpdateCustomerDto,
-  ) {
+  ): Promise<IPersonalInfo> {
     const customer = await this.sharedService.findOneOrFail<Customers>({
-      id: param.id,
       repositoryType: RepositoryType.Customer,
+      options: { where: { id: param.id } },
     });
 
     await this.customersService.checkUniqueProperties(
@@ -80,9 +83,10 @@ export class CustomersController {
     );
 
     const updatedCustomer = await this.customersService.update(
-      customer as Customers,
+      customer,
       updateCustomerDto,
     );
+
     return updatedCustomer;
   }
 

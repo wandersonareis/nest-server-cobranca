@@ -18,9 +18,8 @@ export enum RepositoryType {
 }
 
 export type ValidateById = {
-  id: number;
   repositoryType: RepositoryType;
-  options?: FindOneOptions<any>;
+  options: FindOneOptions;
 };
 
 export type ObjectKey<T> = keyof T;

@@ -16,11 +16,11 @@ export default class SharedService {
     private customerRepository: Repository<Customers>,
   ) {}
 
-  async findOneOrFail<T>(decoded: ValidateById): Promise<T> {
-    const founded = await this.findOneByIdAndType(decoded);
+  async findOneOrFail<T>(validate: ValidateById): Promise<T> {
+    const founded = await this.findOneByIdAndType(validate);
 
     if (!founded) {
-      throw new NotFoundException(`${decoded.repositoryType} não encontrado`);
+      throw new NotFoundException(`${validate.repositoryType} não encontrado`);
     }
 
     return founded as T;
@@ -61,8 +61,8 @@ export default class SharedService {
     return await repository.findOne(options);
   }
 
-  private async findOneById(repository: any, id: number) {
-    return await repository.findOne({ where: { id } });
+  private async findOneById(repository: any, options: FindOneOptions) {
+    return await repository.findOne(options);
   }
 
   private async findOneByIdAndType<T>(target: ValidateById): Promise<T> {
@@ -72,13 +72,13 @@ export default class SharedService {
           return await this.findOne(this.userRepository, target.options);
         }
 
-        return await this.findOneById(this.userRepository, target.id);
+        return await this.findOneById(this.userRepository, target.options);
       case 'customer':
         if (target.options) {
           return await this.findOne(this.customerRepository, target.options);
         }
 
-        return await this.findOneById(this.customerRepository, target.id);
+        return await this.findOneById(this.customerRepository, target.options);
       default:
         throw new Error('Tipo de repositório inválido.');
     }
