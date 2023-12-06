@@ -6,5 +6,5 @@ export default class CustomerIdParam extends IdParam {
   @Validate(CustomerExistsRule, {
     message: 'Cliente não encontradoooo',
   })
-  id: number;
+  declare id: number;
 }

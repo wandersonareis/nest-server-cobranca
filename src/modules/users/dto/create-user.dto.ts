@@ -13,5 +13,5 @@ export class CreateUserDto extends BaseCreateDto implements ICreateUser {
   password: string;
 
   @Type(() => CreateUserAddressDto)
-  readonly address: CreateUserAddressDto;
+  declare readonly address: CreateUserAddressDto;
 }

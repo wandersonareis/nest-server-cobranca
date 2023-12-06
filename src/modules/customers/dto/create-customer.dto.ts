@@ -14,7 +14,7 @@ import { CustomerExistsRule } from '../constraints/customer-exists.constraint';
 export class CreateCustomerDto extends BaseCreateDto implements IPersonalInfo {
   @IsOptional()
   @Validate(CustomerExistsRule)
-  id: number;
+  declare id: number;
 
   @IsOptional()
   @IsNumber()
@@ -24,5 +24,5 @@ export class CreateCustomerDto extends BaseCreateDto implements IPersonalInfo {
   @IsObject({ message: 'address: deve ser um objeto.' })
   @Type(() => CreateCustomersAddressDto)
   @ValidateNested()
-  address: CreateCustomersAddressDto;
+  declare address: CreateCustomersAddressDto;
 }
