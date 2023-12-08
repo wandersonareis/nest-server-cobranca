@@ -7,13 +7,14 @@ import {
   ValidationException,
   ValidationFilter,
 } from './filters/validation.filter';
+import { IConfig } from './common/interfaces';
 
 declare const module: any;
 
 async function bootstrap() {
   const app: NestApplication = await NestFactory.create(AppModule);
   const config: ConfigService = app.get(ConfigService);
-  const port: number = config.get<number>('PORT') || 8000;
+  const serverConfig = config.get<IConfig['serverConfig']>('serverConfig');
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
@@ -33,7 +34,7 @@ async function bootstrap() {
     }),
   );
 
-  await app.listen(port);
+  await app.listen(serverConfig!.port);
 
   if (module.hot) {
     module.hot.accept();

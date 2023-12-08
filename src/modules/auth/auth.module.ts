@@ -10,12 +10,16 @@ import { UsersModule } from '../users/users.module';
 import { LocalStrategy } from './local.strategy';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { IConfig } from '@/common/interfaces';
 
 const jwtFactory = {
   inject: [ConfigService],
   useFactory: (configService: ConfigService) => ({
-    secret: configService.get('JWT_KEY'),
-    signOptions: { expiresIn: configService.get('JWT_EXPIRES') },
+    secret: configService.get<IConfig['jwtConfig']>('jwtConfig')?.secret,
+    signOptions: {
+      expiresIn:
+        configService.get<IConfig['jwtConfig']>('jwtConfig')?.expiresIn || '8h',
+    },
   }),
 };
 
@@ -34,4 +38,6 @@ const jwtFactory = {
   ],
   exports: [AuthService, AuthHelper],
 })
-export class AuthModule {}
+export class AuthModule {
+  bla = 'bla';
+}
