@@ -22,51 +22,92 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+Aplicação de cadastro de cobranças
+Esta aplicação foi criada pela equipe de desenvolvedores.
+
+- [Sergio Augusto Moreira Bastos Junior](https://github.com/sergiofisio) 
+- [Wanderson Aparecido](https://github.com/wandersonareis) - eu
+- [Gabriel Savioli Pacheco](https://github.com/gsaviop)
+- [Melch Raiol](https://github.com/melch-raiol)
+- [Richard Valim](https://github.com/Valim557)
+
+Este repositório contém uma aplicação de cadastro de cobranças que permite cadastrar clientes, gerenciar cobranças e realizar outras funcionalidades.
+
+Tecnologias utilizadas As seguintes tecnologias foram utilizadas no desenvolvimento desta aplicação:
+
+Back-end
+Node.js
+Express.js
+Knex
+PostgreSQL
+Swagger UI Express
+
+
+## Funcionalidades
+Esta aplicação permite realizar as seguintes funcionalidades:
+
+### Usuário
+Cadastro do usuário
+
+### Login do usuário
+Edição do usuário logado
+
+### Cliente
+Cadastro do cliente
+Listagem de clientes
+Detalhamento do cliente
+Atualização do cliente
+
+### Cobranças
+Cadastro de cobranças
+Listagem de cobranças
+Edição de cobranças
+Exclusão de cobranças
+Detalhe da cobrança
+
+## Descrição
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+## Instalação
 
+1. Instale o gerenciador de pacotes Bun.
+[Bun package manager](https://bun.sh/)
+
+2. Instale os pacotes do projeto com:
 ```bash
-$ yarn install
+$ bun install
 ```
 
-## Running the app
+## Executando
 
 ```bash
 # development
-$ yarn run start
+$ bun run start
 
 # watch mode
-$ yarn run start:dev
+$ bun run start:dev
 
 # production mode
-$ yarn run start:prod
+$ bun run start:prod
 ```
 
-## Test
+## Testes
 
 ```bash
 # unit tests
-$ yarn run test
+$ bun run test
 
 # e2e tests
-$ yarn run test:e2e
+$ bun run test:e2e
 
 # test coverage
-$ yarn run test:cov
+$ bun run test:cov
 ```
 
-## Support
+## Suporte
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
