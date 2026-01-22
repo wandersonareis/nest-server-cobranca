@@ -30,7 +30,7 @@
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/mapped-types": "^2.0.4",
     "@nestjs/passport": "^10.0.3",
-    "@nestjs/platform-express": "^10.4.20",
+    "@nestjs/platform-express": "^10.4.22",
     "@nestjs/typeorm": "^10.0.1",
     "bcrypt": "^6.0.0",
     "class-transformer": "^0.5.1",
